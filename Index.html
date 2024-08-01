@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>hello</h1>
+    <script>
+
+    class Node
+    {
+      constructor(value)
+      {
+        this.value  =  value;
+        this.left = null;
+        this.right = null;
+      }
+    }
+
+    class Rootnode 
+    {
+      constructor()
+      {
+        this.root = null;
+      }
+
+      maketree(val)
+      {
+      let newnode = new Node(val);
+      if(this.root === null)
+      {
+        this.root = newnode;
+      }
+      else
+      {
+        this.insertnode(this.root, newnode);
+      }
+      }
+
+     insertnode(root, newnode)
+      {
+         if(root.value > newnode.value)
+         {
+          if(root.left === null)
+         {
+          root.left = newnode;
+         }
+         else
+         {
+          this.insertnode(root.left, newnode)
+         }
+         }
+
+         else
+         {
+          if(root.right === null)
+         {
+          root.right = newnode;
+         }
+         else
+         {
+          this.insertnode(root.right, newnode);
+         }
+         
+         }
+      }
+
+      serch(root, x) {  
+           if(root === null)
+           {
+            return false;
+           }
+           else if(root.value == x)
+           {
+                return true;
+          
+           }
+           else if(root.value > x)   
+           {
+           return this.serch(root.left, x);
+           }
+           else
+           {
+            (root.value < x)
+           
+           return this.serch(root.right, x)
+           }
+      }
+
+      preorder(root)
+      {
+        
+        if(root)
+      {
+        console.log(root.value)
+        this.preorder(root.left)
+        this.preorder(root.right)
+      }
+      }
+
+      Inorder(root)
+      {
+        
+        if(root)
+      {
+      
+        this.Inorder(root.left)
+        console.log(root.value)
+        this.Inorder(root.right)
+      }
+      }
+
+      Postorder(root)
+      {
+        
+        if(root)
+      {
+      
+        this.Postorder(root.left)
+        this.Postorder(root.right)
+        console.log(root.value)
+      }
+      }
+
+      BFS()
+      {
+       let queue = [];
+        queue.push(this.root)
+
+    
+        while(queue.length)
+      {
+        let current = queue.shift();
+        if(current.left)
+      {
+        queue.push(current.left)
+        
+      }
+      if(current.right)
+      {
+        queue.push(current.right)
+      }
+
+      console.warn(current.value)
+    
+      }
+      }
+
+      max(root)
+      {
+         if(root.right == null)
+         {
+          let output  = root.value;
+          return output;
+         }
+         else
+         {
+          return this.max(root.right);
+         }
+      }
+
+      min(root)
+      {
+         if(root.left == null)
+         {
+          let output  = root.value;
+          return output;
+         }
+         else
+         {
+          return this.min(root.left);
+         }
+      }
+
+      remove(value)
+      {
+        this.root = this.deleteNode(this.root, value)
+        
+      }
+
+      deleteNode(root, value)
+      {
+        if (root === null) {
+            return null;
+          }
+          if (value < root.value) {
+            root.left = this.deleteNode(root.left, value);
+          } else if (value > root.value) {
+            root.right = this.deleteNode(root.right, value);
+          } else {
+            if (!root.left && !root.right) {
+              return null;
+            } else if (!root.left) {
+              return root.right;
+            } else if (!root.right) {
+              return root.left;
+            }
+            root.value= this.min(root.right);
+            root.right=this.deleteNode(root.right,root.value)
+          }
+          return root;
+        
+      }
+      
+    }
+    
+    
+
+    const obj = new Rootnode();
+    obj.maketree(20);
+    obj.maketree(10);
+    obj.maketree(5);
+    obj.maketree(11);
+    obj.maketree(30);
+    obj.maketree(23);
+    obj.maketree(40);
+    // const output = obj.serch(obj.root, 45)
+    // console.log(output)
+    // obj.preorder(obj.root);
+    // obj.Inorder(obj.root);
+    // obj.Postorder(obj.root);
+    // obj.BFS();
+  //  let maximum = obj.max(obj.root);
+  //  console.log(maximum);
+
+  //  let minimum = obj.min(obj.root);
+  //  console.log(minimum);
+   
+ 
+  obj.remove(20);
+  obj.BFS();
+    
+  </script>
+  </body>
+</html>
